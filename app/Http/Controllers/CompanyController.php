@@ -49,6 +49,11 @@ class CompanyController extends Controller
     {
         //
     }
+    public function getDrugByCompany(string $id)
+    {
+        $company = Company::findOrFail($id);
+        return $company->drugs;
+    }
 
     /**
      * Show the form for editing the specified resource.

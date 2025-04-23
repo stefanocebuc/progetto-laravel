@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Drugs;
+use App\Models\Drug;
 
 class DrugController extends Controller
 {
@@ -12,7 +12,7 @@ class DrugController extends Controller
      */
     public function index()
     {
-        return Drugs::all();
+        return Drug::all();
     }
 
     /**
@@ -36,8 +36,15 @@ class DrugController extends Controller
      */
     public function show(string $id)
     {
-        return Drugs::findOrFail($id);
+        return Drug::findOrFail($id);
     }
+
+    public function getCompanyByDrug(string $id)
+    {
+        $drug = Drug::findOrFail($id);
+        return $drug->company;
+    }
+
 
     /**
      * Show the form for editing the specified resource.

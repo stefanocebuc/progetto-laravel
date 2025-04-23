@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Ingredients;
+use App\Models\Ingredient;
 
 class IngredientController extends Controller
 {
@@ -12,7 +12,7 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        return Ingredients::all();
+        return Ingredient::all();
     }
 
     /**
@@ -36,7 +36,13 @@ class IngredientController extends Controller
      */
     public function show(string $id)
     {
-        return Ingredients::findOrFail($id);
+        return Ingredient::findOrFail($id);
+    }
+
+    public function getDrugbyIngredient(string $id)
+    {
+        $ingredient = Ingredient::findOrFail($id);
+        return $ingredient->drugs;
     }
 
     /**
