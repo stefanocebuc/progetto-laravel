@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
+    //ovvero contiene array di attributi che vogliamo siano modificabili
     protected $fillable = ['name'];
-    // protected $garded = ["id", "created_at", "updated_at"]; -> 
-    //ovvero contiene array di attributi che non vogliamo siano modificabili
     //array vuoto se vogliamo consentire la modifica di tutti gli attributi
+    // protected $garded = ["id", "created_at", "updated_at"]; -> 
 }
