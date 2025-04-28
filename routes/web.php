@@ -16,6 +16,10 @@ Route::get('dashboard', function () {
 
 Route::get("company2", [CompanyController::class, "getcompany2"]);
 /* Route::get("company2/{id}", [CompanyController::class, "fetchcompany2"]); */
+Route::get('dashboard', function(){
+    return Inertia::render('dashboard');
+})->middleware(['auth', 'verified'])->name('dahsboard');
+
 Route::get("drugs", [DrugController::class, "index"]);
 Route::get("ingredients", [IngredientController::class, "index"]);
 Route::get("drugs/{id}", [DrugController::class, "show"]);
@@ -23,8 +27,10 @@ Route::get("ingredients/{id}", [IngredientController::class, "show"]);
 Route::get("drugs/{id}/company", [DrugController::class, "getCompanyByDrug"]);
 Route::get("company/{id}/drugs", [CompanyController::class, "getDrugByCompany"]);
 Route::get("ingredients/{id}/drugs", [IngredientController::class, "getDrugbyIngredient"]);
+Route::delete("delete/{id}", [CompanyController::class, "destroy"])->middleware(['auth']);
 
-Route::resource('company', CompanyController::class); // shortcut per definire tutte le routes
+Route::resource('company', CompanyController::class)->only(['create', 'store'])->middleware(['auth']); // shortcut per definire tutte le routes
+Route::resource('company', CompanyController::class);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
