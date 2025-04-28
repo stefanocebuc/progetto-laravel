@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Drug;
+
+class Ingredient extends Model
+{
+    protected $fillable = ['atc_code', 'main_ingredient', 'description'];
+    protected $table = 'active_ingredients';
+
+    public function drugs(): HasMany
+    {
+        return $this->hasMany(Drug::class, 'active_ingredient_id');
+    }
+}

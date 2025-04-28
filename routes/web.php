@@ -14,12 +14,15 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-/* Route::get("company2", [CompanyController::class, "getcompany2"]);
-Route::get("company2/{id}", [CompanyController::class, "fetchcompany2"]); */
+Route::get("company2", [CompanyController::class, "getcompany2"]);
+/* Route::get("company2/{id}", [CompanyController::class, "fetchcompany2"]); */
 Route::get("drugs", [DrugController::class, "index"]);
 Route::get("ingredients", [IngredientController::class, "index"]);
 Route::get("drugs/{id}", [DrugController::class, "show"]);
 Route::get("ingredients/{id}", [IngredientController::class, "show"]);
+Route::get("drugs/{id}/company", [DrugController::class, "getCompanyByDrug"]);
+Route::get("company/{id}/drugs", [CompanyController::class, "getDrugByCompany"]);
+Route::get("ingredients/{id}/drugs", [IngredientController::class, "getDrugbyIngredient"]);
 
 Route::resource('company', CompanyController::class); // shortcut per definire tutte le routes
 

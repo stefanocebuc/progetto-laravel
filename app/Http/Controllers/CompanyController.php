@@ -13,9 +13,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $all_companies_data = Company::all();
+        $all_companies_data = Company::all(); // select * from modello company
 
-        return response()->view('Companies', ["data" => $all_companies_data]);
+        return Inertia::render('Companies', ["data" => $all_companies_data]);
     }
 
     public function getcompany2()
@@ -31,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('company/Create');
     }
 
     /**
@@ -39,7 +39,8 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Company::create($request->validate(['name' => ['required', 'min:5']]));
+        return to_route('company.index');
     }
 
     /**
@@ -47,7 +48,8 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $all_companies_data = Company::find($id);
+        return Inertia::render('Company', ["data" => $all_companies_data]);
     }
     public function getDrugByCompany(string $id)
     {
@@ -76,6 +78,7 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Company::findOrFail($id)->delete();
+        return to_route('company.index');
     }
 }
