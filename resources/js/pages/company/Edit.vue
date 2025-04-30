@@ -8,20 +8,27 @@ import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 
+const props= defineProps<{
+   data: {
+    id:string,
+    name:string
+   }
+}>();
+
 const form = useForm({
-    name: ''
+    name: props.data["name"] || ""
 });
 
 const submit = () => {
-    form.post(route('company.store'), {
+    form.put(route('company.update', props.data.id), {
         onFinish: () => form.reset('name')
     });
 };
 </script>
 
 <template>
-    <AuthBase title="Create a new Company" description="Enter your details below to create a new Company">
-        <Head title="Create a new Company" />
+    <AuthBase title="Edit an existing Company" description="">
+        <Head title="Edit an existing Company" />
 
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
@@ -33,7 +40,7 @@ const submit = () => {
                         required
                         :tabindex="1"
                         v-model="form.name"
-                        placeholder="A New Company"
+                        placeholder="An existing Company"
                     />
                     <InputError :message="form.errors.name" />
                 </div>

@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Drug extends Model
 {
-    protected $fillable = ['minsan_code', 'name', 'description', 'expiration_date', 'price', 'company_id', 'active_ingredient_id'];
+    use SoftDeletes;
+    protected $fillable = ['name', 'minsan_code', 'description', 'expiration_date', 'price', 'company_id', 'active_ingredient_id'];
 
     public function company(): BelongsTo
     {

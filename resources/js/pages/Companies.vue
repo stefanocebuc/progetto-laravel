@@ -22,9 +22,12 @@ defineProps({ data: Object })
             <td>{{ company["id"] }}</td>
             <td>{{ company.name }}</td>
             <td style="display: inline;">
-                <Link v-if="$page.props.auth.user" :href="'/company/' +company.id" as="button">
+            <Link v-if="$page.props.auth.user" :href="'/company/' +company.id" as="button">
                     <SvgIcon :fa-icon="faEye"></SvgIcon>
-                </Link>
+            </Link>
+            <Link v-if="$page.props.auth.user" :href="'/company/' +company.id+ '/edit'" as="button">
+                    <SvgIcon :fa-icon="faPencil"></SvgIcon>
+            </Link>
             <Link onclick="return confirm('Are you sure?')" v-if="$page.props.auth.user" method="DELETE" :href="'/company/' +company.id" as="button">
                 <SvgIcon :fa-icon="faTrash"></SvgIcon>
             </Link>

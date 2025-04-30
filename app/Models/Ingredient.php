@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ingredient extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['atc_code', 'main_ingredient', 'description'];
     protected $table = 'active_ingredients';
 
@@ -16,5 +17,4 @@ class Ingredient extends Model
     {
         return $this->hasMany(Drug::class, 'active_ingredient_id');
     }
-
 }

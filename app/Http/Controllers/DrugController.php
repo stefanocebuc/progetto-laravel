@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Drug;
+use App\Models\Company;
+use App\Models\Ingredient;
+use Inertia\Inertia;
 
 class DrugController extends Controller
 {
@@ -12,7 +15,8 @@ class DrugController extends Controller
      */
     public function index()
     {
-        return Drug::all();
+        $all_drugs_data = Drug::all();
+        return Inertia::render('Drugs', ["data" => $all_drugs_data]);
     }
 
     /**
@@ -20,7 +24,9 @@ class DrugController extends Controller
      */
     public function create()
     {
-        //
+        $all_companies = Company::all();
+        $all_active_ingredients = Ingredient::all();
+        return Inertia::render('drug/CreateDrug', ["companies" => $all_companies, "active_ingredient" => $all_active_ingredients]);
     }
 
     /**
@@ -28,7 +34,16 @@ class DrugController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Drug::create($request->validate([
+            'name' => ['required', 'min:5'],
+            'minsan_code' => ['required', 'min:6'],
+            'description' => ['required', 'min:5'],
+            'expiration_date' => ['required'],
+            'price' => ['required'],
+            'company_id' => ['required'],
+            'active_ingredient_id' => ['required']
+        ]));
+        return to_route('drugs.index');
     }
 
     /**
@@ -36,7 +51,8 @@ class DrugController extends Controller
      */
     public function show(string $id)
     {
-        return Drug::findOrFail($id);
+        $all_drugs_data = Drug::find($id);
+        return Inertia::render('Drug', ["data" => $all_drugs_data]);
     }
 
     public function getCompanyByDrug(string $id)
@@ -51,7 +67,8 @@ class DrugController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Drug::find($id);
+        return Inertia::render("drug/EditDrug", ["data" => $data]);
     }
 
     /**
@@ -59,7 +76,16 @@ class DrugController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Drug::find($id)->update(
+            $request->validate([
+                'name' => ['required', 'min:5'],
+                'minsan_code' => ['required', 'min:6'],
+                'description' => ['required', 'min:5'],
+                'expiration_date' => ['required'],
+                'price' => ['required'],
+            ])
+        );
+        return to_route('drugs.index');
     }
 
     /**
@@ -67,6 +93,7 @@ class DrugController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Drug::findOrFail($id)->delete();
+        return to_route('drugs.index');
     }
 }
