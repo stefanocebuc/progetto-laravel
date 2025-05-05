@@ -48,7 +48,7 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        $all_companies_data = Company::find($id);
+        $all_companies_data = Company::find($id)->load("drugs");
         return Inertia::render('Company', ["data" => $all_companies_data]);
     }
     public function getDrugByCompany(string $id)
@@ -75,8 +75,8 @@ class CompanyController extends Controller
             $request->validate([
                 'name' => ['required', 'min:5'],
             ])
-            );
-            return to_route('company.index');
+        );
+        return to_route('company.index');
     }
 
     /**

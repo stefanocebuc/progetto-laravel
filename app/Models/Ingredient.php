@@ -17,4 +17,8 @@ class Ingredient extends Model
     {
         return $this->hasMany(Drug::class, 'active_ingredient_id');
     }
+    public function all_drugs(): HasMany
+    {
+        return $this->hasMany(Drug::class, 'active_ingredient_id')->withTrashed();
+    }
 }

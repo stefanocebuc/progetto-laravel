@@ -8,6 +8,7 @@ import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 
+
 const props= defineProps<{
    data: {
     id:string,
@@ -15,8 +16,12 @@ const props= defineProps<{
     minsan_code:string,
     description:string,
     expiration_date:string,
-    price:string
-   }
+    price:string,
+    company_id:Array<Object>,
+    active_ingredient_id:Array<Object>
+   },
+    companies: Array<Object>,
+    active_ingredient: Array<Object>
 }>();
 
 const form = useForm({
@@ -24,7 +29,9 @@ const form = useForm({
     minsan_code: props.data["minsan_code"] || "",
     description: props.data["description"] || "",
     expiration_date: props.data["expiration_date"] || "",
-    price: props.data["price"] || 0
+    price: props.data["price"] || 0,
+    company_id: props.data['company_id'],
+    active_ingredient_id: props.data['active_ingredient_id']
 });
 
 const submit = () => {
@@ -91,10 +98,20 @@ const submit = () => {
                         placeholder="An existing Price"
                     />
                     <InputError :message="form.errors.price" />
+                    <Label for="name">Company Name</Label>
+                    <select id="companies" v-model="form.company_id">
+                        <option v-for="item in props.companies" :value="item['id']">{{ item['name'] }}</option>
+                        <InputError :message="form.errors.name" />
+                    </select>
+                    <Label for="name">Active Ingredient</Label>
+                    <select id="active_ingredient_id" v-model="form.active_ingredient_id">
+                        <option v-for="item in props.active_ingredient" :value="item['id']">{{ item['main_ingredient'] }}</option>
+                        <InputError :message="form.errors.active_ingredient_id" />
+                    </select>
                 </div>
                 <Button type="submit" class="mt-2 w-full" tabindex="5" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Create 
+                    Edit Drug 
                 </Button>
                 </div>
         </form>

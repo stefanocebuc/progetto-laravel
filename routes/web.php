@@ -29,7 +29,8 @@ Route::resource('drugs', DrugController::class)->only(['create', 'store', 'updat
 Route::resource('drugs', DrugController::class)->only(['index', 'show']);
 Route::get('drugs/{id}/edit', [DrugController::class, "edit"]);
 
-Route::resource('ingredients', DrugController::class)->only(['create', 'store', 'update', 'destroy'])->middleware(['auth']);
-Route::get('ingredients/{id}/edit', [DrugController::class, "edit"]);
+Route::resource('ingredients', IngredientController::class)->only(['create', 'store', 'update', 'destroy'])->middleware(['auth']);
+Route::resource('ingredients', IngredientController::class)->only(['index', 'show']);
+Route::get('ingredients/{id}/edit', [IngredientController::class, "edit"]);
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

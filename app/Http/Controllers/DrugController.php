@@ -68,7 +68,9 @@ class DrugController extends Controller
     public function edit(string $id)
     {
         $data = Drug::find($id);
-        return Inertia::render("drug/EditDrug", ["data" => $data]);
+        $all_companies = Company::all();
+        $all_active_ingredients = Ingredient::all();
+        return Inertia::render("drug/EditDrug", ["data" => $data, "companies" => $all_companies, "active_ingredient" => $all_active_ingredients]);
     }
 
     /**
