@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DrugController;
 use App\Http\Controllers\IngredientController;
+use GuzzleHttp\Middleware;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -31,6 +33,11 @@ Route::get('drugs/{id}/edit', [DrugController::class, "edit"]);
 
 Route::resource('ingredients', IngredientController::class)->only(['create', 'store', 'update', 'destroy'])->middleware(['auth']);
 Route::resource('ingredients', IngredientController::class)->only(['index', 'show']);
+
 Route::get('ingredients/{id}/edit', [IngredientController::class, "edit"]);
+
+Route::get("drugs/{id}/pay", [DrugController::class, "buy_drug"]);
+
+Route::get("cart", [CartController::class, "show"])->middleware(['auth']);
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Drug;
 use App\Models\Company;
 use App\Models\Ingredient;
+use App\Http\Controllers\PaymentController;
 use Inertia\Inertia;
 
 class DrugController extends Controller
@@ -97,5 +98,12 @@ class DrugController extends Controller
     {
         $data = Drug::findOrFail($id)->delete();
         return to_route('drugs.index');
+    }
+
+    public function buy_drug($id)
+    {
+        $stripeController = new PaymentController();
+
+        return $stripeController->pay($id);
     }
 }
