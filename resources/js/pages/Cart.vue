@@ -13,7 +13,6 @@ table {
     width: 100%;
 }
 td, th{
-    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
@@ -29,13 +28,13 @@ tr:nth-child(even){
     <tbody>
         <tr>
             <th>id</th>
-            <th>farmaco</th>
-            <th>azioni</th>
+            <th>Farmaco</th>
+            <th>Azioni</th>
         </tr>
         <tr v-for="cart_row in data">
             <td>{{ cart_row["id"] }}</td>
             <td>{{ cart_row.drug.name }}</td>
-            <td style="display: inline;">
+            <td style="display: inline-flex;">
             <Link onclick="return confirm('Are you sure?')" v-if="$page.props.auth.user" method="DELETE" :href="'/cart/' +cart_row.id" as="button">
                 <SvgIcon :fa-icon="faTrash"></SvgIcon>
             </Link>

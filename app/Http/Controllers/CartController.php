@@ -27,9 +27,11 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $id)
     {
-        //
+        $user = $request->user();
+        Cart::create(["user_id" => $user->id, "drug_id" => $id]);
+        return to_route('cart.show');
     }
 
     /**
@@ -66,5 +68,16 @@ class CartController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function compra_carrello(Request $request)
+    {
+        $user = $request->user(); // cosi abbiamo l'utente auth
+
+        $cart_rows = Cart::where("user_id", $user->id)->get()->load("drug");
+
+        $stripeController = new PaymentController();
+
+        return $stripeController->pay_cart($cart_rows);
     }
 }

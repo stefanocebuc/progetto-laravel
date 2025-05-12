@@ -25,13 +25,44 @@ class PaymentController extends Controller
                 'price_data' => [
                     'currency' => 'eur',
                     'product_data' => [
-                        "name" =>$farmaco->name
+                        "name" => $farmaco->name
                     ],
-                    "unit_amount" =>$farmaco->price*100
+                    "unit_amount" => $farmaco->price * 100
                 ],
                 'quantity' => 1,
             ]],
-            "metadata"=>$farmaco->toArray(),
+            "metadata" => $farmaco->toArray(),
+            'mode' => 'payment',
+            'success_url' => 'http://localhost:8000/drugs',
+            'cancel_url' =>  'http://localhost:8000/drugs',
+        ]);
+        return redirect()->away($checkout_session->url);
+    }
+
+    public function pay_cart($items)
+    {
+        $line_items = array();
+
+        foreach ($items->toArray() as $cart_row) {
+            array_push(
+                $line_items,
+                [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            "name" => $cart_row["drug"]["name"]
+                        ],
+                        "unit_amount" => $cart_row["drug"]["price"] * 100
+                    ],
+                    'quantity' => 1,
+                ]
+            );
+        }
+        //end foreach
+
+        $checkout_session = $this->stripe->checkout->sessions->create([
+            'line_items' => $line_items,
+            /* "metadata" => $farmaco->toArray(), */
             'mode' => 'payment',
             'success_url' => 'http://localhost:8000/drugs',
             'cancel_url' =>  'http://localhost:8000/drugs',

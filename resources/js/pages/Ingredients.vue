@@ -13,7 +13,6 @@ table {
     width: 100%;
 }
 td, th{
-    border: 1px solid #dddddd;
     text-align: center;
     padding: 15px;
 }
@@ -39,7 +38,7 @@ tr:nth-child(even){
             <td>{{ ingredient.atc_code }}</td>
             <td>{{ ingredient.main_ingredient }}</td>
             <td>{{ ingredient.description }}</td>
-            <td style="display: inline;">
+            <td style="display: inline-flex;">
             <Link v-if="$page.props.auth.user" :href="'/ingredients/' +ingredient.id" as="button">
                     <SvgIcon :fa-icon="faEye"></SvgIcon>
             </Link>

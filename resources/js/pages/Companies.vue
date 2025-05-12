@@ -1,17 +1,31 @@
 <script setup>
-import AuthBase from '@/layouts/auth/AuthSimpleLayout.vue';
+import AuthBase from '@/layouts/FarmaciaHeader.vue';
 import { Head } from   '@inertiajs/vue3';
 import { Link } from    '@inertiajs/vue3';
 import SvgIcon from "vue3-icon";
 import { faEye, faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 defineProps({ data: Object })
 </script>
-
+<style>
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th{
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even){
+    background-color: #dddddd;
+}
+</style>
 <template>
     <AuthBase title="" description="">
     <head title="Companies" />
-    <h1>Aziende Registrate</h1>
+    <h1 class="text-center m-7"><b>Aziende Registrate</b></h1>
 
+    <div class="w-full flex justify-center">
     <tbody>
         <tr>
             <th scope="row">id</th>
@@ -21,7 +35,7 @@ defineProps({ data: Object })
         <tr v-for="company in data">
             <td>{{ company["id"] }}</td>
             <td>{{ company.name }}</td>
-            <td style="display: inline;">
+            <td style="display: inline-flex;">
             <Link v-if="$page.props.auth.user" :href="'/company/' +company.id" as="button">
                     <SvgIcon :fa-icon="faEye"></SvgIcon>
             </Link>
@@ -34,8 +48,10 @@ defineProps({ data: Object })
             </td>
         </tr>
     </tbody>
-    <Link class="block w-full" :href="route('company.create')" as="button">
+</div>
+    <Link class="block w-full m-3" :href="route('company.create')" as="button">
         Create New
     </Link>
+
     </AuthBase>
 </template>

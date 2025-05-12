@@ -3,7 +3,7 @@ import AuthBase from '@/layouts/auth/AuthSimpleLayout.vue';
 import { Head } from   '@inertiajs/vue3';
 import { Link } from    '@inertiajs/vue3';
 import SvgIcon from "vue3-icon";
-import { faEye, faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faTrash, faPencil, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 defineProps({ data: Object })
 </script>
 <style>
@@ -13,7 +13,6 @@ table {
     width: 100%;
 }
 td, th{
-    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
@@ -44,7 +43,7 @@ tr:nth-child(even){
             <td>{{ drugs.description }}</td>
             <td>{{ drugs.expiration_date }}</td>
             <td>{{ drugs.price }}</td>
-            <td style="display: inline;">
+            <td style="display: inline-flex;">
             <Link v-if="$page.props.auth.user" :href="'/drugs/' +drugs.id" as="button">
                     <SvgIcon :fa-icon="faEye"></SvgIcon>
             </Link>
@@ -53,6 +52,9 @@ tr:nth-child(even){
             </Link>
             <Link onclick="return confirm('Are you sure?')" v-if="$page.props.auth.user" method="DELETE" :href="'/drugs/' +drugs.id" as="button">
                 <SvgIcon :fa-icon="faTrash"></SvgIcon>
+            </Link>
+            <Link v-if="$page.props.auth.user" :href="'/drugs/' +drugs.id + '/addtocart'" as="button">
+                    <SvgIcon :fa-icon="faCartShopping"></SvgIcon>
             </Link>
             </td>
         </tr>

@@ -1,5 +1,5 @@
 <script setup>
-import AuthBase from '@/layouts/auth/AuthSimpleLayout.vue';
+import AuthBase from '@/layouts/FarmaciaHeader.vue';
 import { Head } from   '@inertiajs/vue3';
 defineProps({ data: Object })
 </script>

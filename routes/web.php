@@ -12,7 +12,7 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get("company2", [CompanyController::class, "getcompany2"]);
+/* Route::get("company2", [CompanyController::class, "getcompany2"]); */
 /* Route::get("company2/{id}", [CompanyController::class, "fetchcompany2"]); */
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
@@ -38,6 +38,8 @@ Route::get('ingredients/{id}/edit', [IngredientController::class, "edit"]);
 
 Route::get("drugs/{id}/pay", [DrugController::class, "buy_drug"]);
 
-Route::get("cart", [CartController::class, "show"])->middleware(['auth']);
+Route::get("cart", [CartController::class, "show"])->middleware(['auth'])->name('cart.show');
+Route::get("drugs/{id}/addtocart", [CartController::class, "store"])->middleware('auth');
+Route::get("cart/pay", [CartController::class, "compra_carrello"])->middleware('auth');
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
