@@ -1,5 +1,5 @@
 <script setup>
-import AuthBase from '@/layouts/auth/AuthSimpleLayout.vue';
+import AuthBase from '@/layouts/FarmaciaHeader.vue';
 import { Head } from   '@inertiajs/vue3';
 import { Link } from    '@inertiajs/vue3';
 import SvgIcon from "vue3-icon";
@@ -22,9 +22,10 @@ tr:nth-child(even){
 </style>
 <template>
     <AuthBase title="" description="">
-    <head title="Companies" />
-    <h1>Carrello</h1>
-
+    <head title="Companies"/>
+    <h1 class="text-center m-7"><b>Carrello</b></h1>
+    <h1 class="text-center m-7"><b>Vuoi procedere con il pagamento?</b></h1>
+<div class="w-full flex justify-center">
     <tbody>
         <tr>
             <th>id</th>
@@ -41,5 +42,6 @@ tr:nth-child(even){
             </td>
         </tr>
     </tbody>
+</div>
     </AuthBase>
 </template>

@@ -38,6 +38,7 @@ Route::get('ingredients/{id}/edit', [IngredientController::class, "edit"]);
 
 Route::get("drugs/{id}/pay", [DrugController::class, "buy_drug"]);
 
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::get("cart", [CartController::class, "show"])->middleware(['auth'])->name('cart.show');
 Route::get("drugs/{id}/addtocart", [CartController::class, "store"])->middleware('auth');
 Route::get("cart/pay", [CartController::class, "compra_carrello"])->middleware('auth');

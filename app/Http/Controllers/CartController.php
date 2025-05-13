@@ -67,7 +67,23 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cartItem = Cart::findOrFail($id);
+        $cartItem->delete();
+
+        return to_route('cart.show')->with('success', 'Prodotto rimosso dal carrello.');
+        $userId = auth()->id;
+        $cartItems = Cart::where('user_id', $userId)->get();
+        $cartCount = $cartItems->count();
+        $cartTotal = $cartItems->sum(function ($item) {
+            return $item->drug->price;
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Prodotto rimosso',
+            'cartCount' => $cartCount,
+            'cartTotal' => number_format($cartTotal, 2),
+        ]);
     }
 
     public function compra_carrello(Request $request)

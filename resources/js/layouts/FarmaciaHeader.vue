@@ -22,6 +22,7 @@ import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
 import { computed } from 'vue';
 import type { BreadcrumbItemType } from '@/types';
 
+
 const page = usePage();
 const auth = computed(() => page.props.auth);
 
@@ -32,12 +33,12 @@ const activeItemStyles = computed(
 );
 
 const links= [
-        {'title': 'Drugs','href': '/drugs'}, {'title': 'Companies','href': '/company'} , {'title': 'Ingredients','href': '/ingredients'}]
+        {'title': 'Drugs','href': '/drugs'}, {'title': 'Companies','href': '/company'} , {'title': 'Ingredients','href': '/ingredients'}, {'title': 'Cart 🛒', 'href': '/cart'}]
 
 </script>
 
 <template>
-    <div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
         <div class="border-b border-sidebar-border/80">
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                 <!-- Mobile Menu -->
@@ -109,13 +110,8 @@ const links= [
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
-
                 <div class="ml-auto flex items-center space-x-2">
                     <div class="relative flex items-center space-x-1">
-                        <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer">
-                            <Search class="size-5 opacity-80 group-hover:opacity-100" />
-                        </Button>
-
                         <div class="hidden space-x-1 lg:flex">
                             <template v-for="item in links" :key="item.title">
                                 <TooltipProvider :delay-duration="0">
